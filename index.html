@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.css">
+  <title>Music player</title>
+</head>
+
+<body class="page">
+  <main class="main">
+    <div class="header">
+      <h1 class="header__title">Мой музыкальный плеер</h1>
+    </div>
+
+    <div class="content">
+      <div class="player">
+
+        <audio id="audioPlayer" >
+          <!-- Путь к файлу музыки -->
+          <source src="./audio/Andy-Williams-It_s-the-Most-Wonderful-Time-of-the-Year-_Official-Audio_.mp3" type="audio/mp3">
+          Ваш браузер не поддерживает тег audio.
+         </audio>
+
+        <div class="player__song-name">Названиеееее песнииииииии</div>
+        <div class="player__progress-container">
+          <div class="player__progress"></div>
+        </div>
+        <div class="player__buttons">
+          <button class="btn prev"></button>
+          <button class="btn play"></button>
+          <button class="btn next"></button>
+        </div>
+
+        <canvas class="player__fireplace" id="player-fireplace"></canvas>
+      </div>
+      <div class="playlist">
+        <h2 class="playlist__title">Плейлист на сегодня</h2>
+        <div class="playlist__container">
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./index.js"></script>
+</body>
+
+</html>

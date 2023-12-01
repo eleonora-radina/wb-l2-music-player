@@ -4,11 +4,10 @@
   min-width: 320px;
   font-family: "Segoe UI", Arial, sans-serif;
   margin: 0 auto;
-  height: 100vh;
 }
 
 .main {
-  margin: 25px auto;
+  margin: 25px auto 0;
   border-radius: 30px;
   background-color: white;
   box-shadow: 1px 1px 8px hsl(300, 27%, 62%, 0.5);
@@ -115,3 +114,11 @@
 .playlist__title {}
 
 .playlist__container {}
+
+.player__fireplace {
+  margin-top: 60px;
+  display: block;
+  width: 100%;
+  height: 50vh;
+  border-radius: 20px;
+}

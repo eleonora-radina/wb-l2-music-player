@@ -1,3 +1,11 @@
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+var analyser = audioCtx.createAnalyser();
+var source = null;
+var analyser = null;
+
+const canvas = document.getElementById('player-fireplace');
+const canvasCtx = canvas.getContext('2d');
+
 const player = document.querySelector('.player');
 const playBtn = document.querySelector('.play');
 const prevBtn = document.querySelector('.prev');
@@ -41,7 +49,43 @@ function togglePlayTrack() {
   } else {
     playBtn.classList.add('pause');
     audioPlayer.play();
-  }  
+
+    analyser = audioCtx.createAnalyser();
+    source = audioCtx.createMediaElementSource(audioPlayer);
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+
+    analyser.fftSize = 256;
+    var bufferLength = analyser.frequencyBinCount;
+    console.log(bufferLength);
+    var dataArray = new Uint8Array(bufferLength);
+
+    canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+    function draw() {
+      drawVisual = requestAnimationFrame(draw);
+
+      analyser.getByteFrequencyData(dataArray);
+
+      canvasCtx.fillStyle = 'rgb(0, 0, 0)';
+      canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+      var barWidth = (canvas.width / bufferLength) * 2.5;
+      var barHeight;
+      var x = 0;
+      for (var i = 0; i < bufferLength; i++) {
+        barHeight = dataArray[i] / 2;
+
+        canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ',50,50)';
+        canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight);
+
+        x += barWidth + 1;
+      }
+    }
+
+    draw();
+
+
+  }
 }
 
 function nextTrack() {
@@ -72,12 +116,12 @@ function prevTrack() {
   }
 }
 
-
-
 playBtn.addEventListener('click', () => {
-  
-
-  togglePlayTrack()});
+  audioCtx.resume()
+    .then(() => {
+      togglePlayTrack();
+    })
+});
 
 nextBtn.addEventListener('click', () => nextTrack());
 prevBtn.addEventListener('click', () => prevTrack());
@@ -104,41 +148,7 @@ progressContainer.addEventListener('click', setProgress);
 
 /////////////////////////////
 
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-var analyser = audioCtx.createAnalyser();
-var source = audioCtx.createMediaElementSource(audioPlayer);
 
-const canvas = document.getElementById('player-fireplace');
-const canvasCtx = canvas.getContext('2d');
 
-source.connect(analyser);
-analyser.connect(audioCtx.destination);
 
-analyser.fftSize = 256;
-var bufferLength = analyser.frequencyBinCount;
-console.log(bufferLength);
-var dataArray = new Uint8Array(bufferLength);
 
-canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-
-function draw() {
-  drawVisual = requestAnimationFrame(draw);
-
-  analyser.getByteFrequencyData(dataArray);
-
-  canvasCtx.fillStyle = 'rgb(0, 0, 0)';
-  canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-  var barWidth = (canvas.width / bufferLength) * 2.5;
-  var barHeight;
-  var x = 0;
-  for(var i = 0; i < bufferLength; i++) {
-    barHeight = dataArray[i]/2;
-
-    canvasCtx.fillStyle = 'rgb(' + (barHeight+100) + ',50,50)';
-    canvasCtx.fillRect(x,canvas.height-barHeight/2,barWidth,barHeight);
-
-    x += barWidth + 1;
-  }
-}
-
-draw();

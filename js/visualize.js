@@ -11,7 +11,7 @@ const canvasCtx = canvas.getContext('2d');
 analyser = audioCtx.createAnalyser();
 source = audioCtx.createMediaElementSource(audioPlayer);
 
-analyser.fftSize = 256;
+analyser.fftSize = 1024; // Кол-во колонок: 1024, 512, 256, 128, 64
 var bufferLength = analyser.frequencyBinCount;
 console.log(bufferLength);
 var dataArray = new Uint8Array(bufferLength);
@@ -44,7 +44,7 @@ function draw() {
   for (var i = 0; i < bufferLength; i++) {
     barHeight = dataArray[i] / 2;
 
-    canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ',0,107)';
+    canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ',132,184)';
     canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight);
 
     x += barWidth + 1;

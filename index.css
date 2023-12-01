@@ -62,7 +62,7 @@
 }
 
 .player__progress {
-  background-color: hsl(300, 27%, 62%);
+  background-color: rgb(184, 132, 184)
   height: 4px;
   border-radius: 5px;
 }

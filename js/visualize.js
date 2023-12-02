@@ -42,10 +42,10 @@ function draw() {
   var barHeight;
   var x = 0;
   for (var i = 0; i < bufferLength; i++) {
-    barHeight = dataArray[i] / 2;
+    barHeight = dataArray[i] / 4;
 
     canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ',176,64)';
-    canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight);
+    canvasCtx.fillRect(x, canvas.height - barHeight / 4, barWidth, barHeight);
 
     x += barWidth + 1;
   }

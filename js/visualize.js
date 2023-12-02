@@ -45,7 +45,7 @@ function draw() {
     barHeight = dataArray[i];
 
     canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ',176,64)';
-    canvasCtx.fillRect(x, canvas.height - barHeight * 2, barWidth, barHeight);
+    canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight);
 
     x += barWidth + 1;
   }

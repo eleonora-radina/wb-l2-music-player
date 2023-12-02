@@ -42,7 +42,7 @@ function draw() {
   var barHeight;
   var x = 0;
   for (var i = 0; i < bufferLength; i++) {
-    barHeight = dataArray[i] / 4;
+    barHeight = dataArray[i];
 
     canvasCtx.fillStyle = 'rgb(' + (barHeight + 100) + ',176,64)';
     canvasCtx.fillRect(x, canvas.height - barHeight / 4, barWidth, barHeight);
